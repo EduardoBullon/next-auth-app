@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import LogoutButton from "./components/LogoutButton";
-import { getServerSession } from "next-auth";
-import Image from "next/image";
 import Provider from "./components/SessionProvider";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import NavMenu from "./components/NavMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +20,11 @@ export const metadata: Metadata = {
   description: "My Next Auth Mapp",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
-  console.log(session);
   return (
     <html lang="en">
       <body
@@ -41,40 +36,7 @@ export default async function RootLayout({
               <Link href="/" className="text-xl font-semibold">
                 MyAuthApp
               </Link>
-
-              <ul className="flex items-center justify-center gap-6 text-sm">
-                <li>
-                  <Link href="/dashboard" className="hover:text-gray-600">
-                    Dashboard
-                  </Link>
-                </li>
-
-                {session?.user && (
-                  <li>
-                    <Link href="/profile" className="hover:text-gray-600">
-                      Profile
-                    </Link>
-                  </li>
-                )}
-
-                {session?.user && (
-                  <li>
-                    <LogoutButton />
-                  </li>
-                )}
-
-                {session?.user?.image && (
-                  <li>
-                    <Image
-                      height={100}
-                      width={100}
-                      src={session?.user?.image}
-                      alt="Profile"
-                      className="w-10 h-10 rounded-full"
-                    />
-                  </li>
-                )}
-              </ul>
+              <NavMenu />
             </div>
           </nav>
 
