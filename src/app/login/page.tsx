@@ -177,12 +177,6 @@ function LoginForm() {
             </Link>
           </p>
         </div>
-
-        <div className="mt-4 p-4 bg-gray-100 rounded text-sm text-gray-700">
-          <p className="font-semibold mb-2">Usuario de prueba:</p>
-          <p>Email: admin@example.com</p>
-          <p>Contraseña: admin123</p>
-        </div>
       </div>
     </div>
   );
